@@ -42,7 +42,7 @@ export class TestRunner {
     }
 
     private async runTerminalCommand(command: string) {
-        if (!this.terminal) {
+        if (!this.terminal || !this.checkTerminalByNameExist(this.terminal.name)) {
             this.terminal = vscode.window.createTerminal('depot tests');
         }
 
@@ -66,5 +66,9 @@ export class TestRunner {
         }
 
         return undefined;
+    }
+
+    private checkTerminalByNameExist(terminalName: string): boolean {
+        return vscode.window.terminals.some((terminal) => terminal.name === terminalName);
     }
 }
